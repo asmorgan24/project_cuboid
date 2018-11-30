@@ -1,0 +1,35 @@
+<launch>
+
+
+    <node name="camera" pkg="usb_cam" type="usb_cam_node">
+  	   <param name="image_width" value="1024"/>
+  	    <param name="image_height" value="576"/>
+    </node>
+
+    <node name="image_view" pkg="image_view" type="image_view" respawn="false" output="screen">
+      <remap from="image" to="/camera/image_raw" />
+    </node>
+
+    <arg name="video" default="0" />
+    <arg name="video_width" default="1024" />
+    <arg name="video_height" default="576" />
+    <arg name="video_codec" default="XVID" />
+    <arg name="video_path" default="/home/grablabadmin/Desktop/manip_[timestamp].avi" />
+    <arg name="video_topic" default="/camera/image_raw_repub" />
+
+    <node name="video_recorder" pkg="video_recorder" type="recorder.py" output="screen" required="true">
+
+        <param name="output_width" type="int" value="1024" />
+        <param name="output_height" type="int" value="576" />
+        <param name="output_format" value="$(arg video_codec)" />
+        <param name="output_path" value="$(arg video_path)" />
+
+        <!-- <param name="output_topic" value="$(arg video_topic)" /> -->
+
+        <param name="source1" value="/camera/image_raw,0,0,1024,576" />
+    </node>
+
+
+
+
+</launch>
