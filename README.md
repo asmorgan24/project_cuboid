@@ -56,6 +56,7 @@ or if you would like to light up edge 3 of the second face,
 
 
 ### Robert Baines  
+Robert Baines led the development for the hardware of this cuboid, which includes the Matlab and Arduino programming. In this role, he set up all of the pressure regulators required to fill the bladders and formulated the Arduino code to address each LED seperately. During this time, he also helped conceive the idea for the topography-from-shades algorithm, which allowed us to map the terrain as we locomoted across the obstacle course. Robert was also responsible for the final data processing of the cuboid's map, including the final blurring sequence/algorithm developed to present our final results in this work. 
 
 ### Hayley McClintock  
 
