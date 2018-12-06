@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="video" default="0" />
+    <arg name="video_width" default="1280" />
+    <arg name="video_height" default="720" />
+    <arg name="video_codec" default="DIVX" />
+    <arg name="video_path" default="/home/grablabadmin/Desktop/camera_overhead_[timestamp].avi" />
+    <!-- <arg name="video_topic" default="/camera/image_raw_repub" /> -->
+
+    <node name="video_recorder_overhead" pkg="video_recorder" type="recorder.py" output="screen" required="true">
+
+        <param name="output_width" type="int" value="1280" />
+        <param name="output_height" type="int" value="720" />
+        <param name="output_format" value="$(arg video_codec)" />
+        <param name="output_path" value="$(arg video_path)" />
+
+      <!--  <param name="output_topic" value="$(arg video_topic)" /> -->
+
+        <param name="source1" value="/camera_overhead/image_raw,0,0,1280,720" />
+    </node>
+
+    <node name="camera_overhead" pkg="usb_cam" type="usb_cam_node">
+        <param name="video_device" value="/dev/video1"/>
+        <param name="image_width" value="1280"/>
+        <param name="image_height" value="720"/>
+    </node>
+
+    <node name="image_view_overhead" pkg="image_view" type="image_view" respawn="false" output="screen">
+       <remap from="image" to="/camera_overhead/image_raw" />
+    </node>
+
+
+</launch>
