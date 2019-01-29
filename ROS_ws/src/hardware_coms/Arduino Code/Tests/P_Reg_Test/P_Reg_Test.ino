@@ -8,7 +8,7 @@
 
 // System configuration variables
 const int NUM_ACTUATORS = 8; // **USER**
-int pressureRegulatorAddresses[NUM_ACTUATORS] = {59, 60,61,72,73,79,80,81}; // **USER**
+int pressureRegulatorAddresses[NUM_ACTUATORS] = {59,60,61,72,73,79,80,81}; // **USER**
 //int pressureRegulatorAddresses[NUM_ACTUATORS] = {33}; // **USER** these are the numbers written on  the regulators (or stickers)
 
 // Memory Addresses
@@ -69,7 +69,7 @@ void loop() {
         command = 3 * (iterState % 3); // [psi]
         float commandVolt = psiToVolt(command);
         commandToSend = voltToTenBit(commandVolt) >> 2; // Only send high byte (high 8 bits)
-        Serial.println(commandToSend); 
+        //Serial.println(commandToSend); 
         writeI2C(pressureRegulatorAddresses[actuator], INDEX_SETPOINT_HIGH_BYTE, commandToSend); // Send command to the actuator
       }
 
@@ -86,11 +86,11 @@ void loop() {
 void finishCycle() {
   changeState = false;
   delay(cycleMillis);
-  Serial.print(command);
-  Serial.print("\t");
-  Serial.println("");
+  //Serial.print(command);
+  //Serial.print("\t");
+  //Serial.println("");
   for (int actuator = 0; actuator < NUM_ACTUATORS; actuator++) {
-    Serial.print(values[actuator]); Serial.print("\t");
+    Serial.println(values[actuator]); Serial.print("\t");
   }
 }
 
@@ -112,6 +112,9 @@ void readPressureRegulator(const int &inAddress, float &inFiltered, const float 
   inReading = tenBitToVolt(inReading);
   inReading = voltToPsi(inReading);
   inFiltered = (inA * inFiltered + (1 - inA) * inReading); //filter the noise, exponential filter
+
+  // rob add to print 
+  //Serial.println(inFiltered); 
 }
 
 void writeI2C(int inAddress, int inIndex, int inValue) {

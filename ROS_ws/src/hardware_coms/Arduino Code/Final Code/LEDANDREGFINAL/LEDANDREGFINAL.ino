@@ -312,7 +312,7 @@ void loop() {
 int turn_on_led(int inSectionSize, int firstIndSec) {
 
   for (int i = firstIndSec; i < inSectionSize + firstIndSec; i++) {
-    leds[i] = CHSV(160, 255, 128);//CHSV(0, 10, 255); //pretty bright white (HSV Color input)
+    leds[i] = CHSV(0,10 , 255);//CHSV(0, 10, 255); //pretty bright white (HSV Color input)
     FastLED.show();
   }
 }
